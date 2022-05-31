@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Popular Movies</string>
+    <string name="title">Title</string>
+    <string name="rating">Rating</string>
+    <string name="overview">Overview</string>
+    <string name="api_key">78b9f63937763a206bff26c070b94158</string>
+</resources>
