@@ -4,8 +4,6 @@ class Constants {
 
 
     companion object {
-        var dbName: String = "movies"
-        var movieWorkerName: String = "loadtopmovies"
     }
 }
 

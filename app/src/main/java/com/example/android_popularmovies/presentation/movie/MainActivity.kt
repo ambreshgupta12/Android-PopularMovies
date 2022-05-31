@@ -41,6 +41,4 @@ class MainActivity : AppCompatActivity() {
             adapter = MoviesAdapter(list)
         }
     }
-
-
 }

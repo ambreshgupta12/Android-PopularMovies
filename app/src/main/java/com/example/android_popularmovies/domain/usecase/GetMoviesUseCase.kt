@@ -12,6 +12,4 @@ class GetMoviesUseCase @Inject constructor(
     override fun buildUseCaseSingle(): Single<MovieResponse> {
         return repository.loadMovies()
     }
-
-
 }
