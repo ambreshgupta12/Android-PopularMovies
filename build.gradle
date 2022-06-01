@@ -1,4 +1,21 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
+buildscript {
+    ext.kotlin_version = '1.5.30'
+    ext.retrofit_version='2.9.0'
+    ext.gson_version='2.8.9'
+    ext.glide_version='4.11.0'
+    ext.logging_interceptor_version='4.8.1'
+    ext.coroutines_version='1.6.1'
+    ext.room_version = "1.1.1"
+    ext.rx_java_version = "2.2.10"
+    ext.rx_android_version = "2.1.1"
+    ext.hilt_version = "2.40.5"
+    ext.lifecycle_version='2.4.1'
+    ext.lifecycle_ext_version='2.2.0'
+    ext.lifecycle_arch_ext_version='1.1.1'
+    ext.activity_ktx='1.4.0'
+    ext.fragment_ktx='1.4.1'
+}
 plugins {
     id 'com.android.application' version '7.1.2' apply false
     id 'com.android.library' version '7.1.2' apply false

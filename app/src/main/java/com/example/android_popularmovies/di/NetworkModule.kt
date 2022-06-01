@@ -3,8 +3,9 @@ package com.example.android_popularmovies.di
 import android.content.Context
 import com.example.android_popularmovies.R
 import com.example.android_popularmovies.data.repository.MovieRepositoryImpl
+import com.example.android_popularmovies.data.source.local.MovieDao
 import com.example.android_popularmovies.data.source.remote.MovieApiService
-import com.example.android_popularmovies.domain.model.repository.MovieRepository
+import com.example.android_popularmovies.domain.repository.MovieRepository
 import com.google.gson.Gson
 import dagger.Module
 import dagger.Provides
@@ -95,9 +96,10 @@ object NetworkModule {
     @Singleton
     @Provides
     fun provideMovieRepository(
-        retrofitService: MovieApiService
+        retrofitService: MovieApiService,
+        movieDao: MovieDao
     ): MovieRepository {
-        return MovieRepositoryImpl(retrofitService)
+        return MovieRepositoryImpl(retrofitService,movieDao)
     }
 
 }

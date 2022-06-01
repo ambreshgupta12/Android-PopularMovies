@@ -4,6 +4,7 @@ class Constants {
 
 
     companion object {
+        val dbName: String="movie.db"
     }
 }
 

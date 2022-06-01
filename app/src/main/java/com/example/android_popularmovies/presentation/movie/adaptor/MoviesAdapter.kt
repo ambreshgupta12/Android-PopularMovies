@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.android_popularmovies.databinding.MovieViewBinding
-import com.example.android_popularmovies.domain.model.Movie
+import com.example.android_popularmovies.data.source.remote.model.Movie
 
 
 class MoviesAdapter(private val movies: List<Movie>) : RecyclerView.Adapter<MoviesViewHolder>() {

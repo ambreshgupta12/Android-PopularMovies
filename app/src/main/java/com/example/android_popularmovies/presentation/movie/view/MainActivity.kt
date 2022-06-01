@@ -1,4 +1,4 @@
-package com.example.android_popularmovies.presentation.movie
+package com.example.android_popularmovies.presentation.movie.view
 
 import android.os.Bundle
 import android.view.View
@@ -8,7 +8,9 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.android_popularmovies.R
 import com.example.android_popularmovies.databinding.ActivityMainBinding
-import com.example.android_popularmovies.domain.model.Movie
+import com.example.android_popularmovies.data.source.remote.model.Movie
+import com.example.android_popularmovies.presentation.movie.view_model.MovieViewModel
+import com.example.android_popularmovies.presentation.movie.MoviesAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

@@ -1,4 +1,4 @@
-package com.example.android_popularmovies.domain.model
+package com.example.android_popularmovies.data.source.remote.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
@@ -6,7 +6,7 @@ import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
 
-class MovieResponse {
+class MovieListModel {
     @SerializedName("page")
     @Expose
     var page: Int? = null
@@ -28,7 +28,7 @@ class MovieResponse {
     }
 }
 
-@Entity
+@Entity(tableName = "movies")
 class Movie {
     @PrimaryKey(autoGenerate = true)
     @SerializedName("id")
