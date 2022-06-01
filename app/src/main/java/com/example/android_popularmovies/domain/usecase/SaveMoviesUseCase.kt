@@ -8,8 +8,12 @@ class SaveMoviesUseCase @Inject constructor(
     private val repository: MovieRepository
 ) {
 
-    fun saveMovieToDb(movies: List<Movie>) {
-        repository.saveMovies(movies)
+    fun cacheMovies(movies: List<Movie>) {
+        repository.cacheMovie(movies)
+    }
+
+    fun getCacheMovies(): List<Movie> {
+        return repository.getCacheMovie()
     }
 
 }

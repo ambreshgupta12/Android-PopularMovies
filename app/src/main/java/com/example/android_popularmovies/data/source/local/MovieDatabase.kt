@@ -6,10 +6,9 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.android_popularmovies.data.source.remote.model.Movie
 import com.example.android_popularmovies.utils.Constants
-import javax.inject.Inject
 
 @Database(entities = [Movie::class], version = Migrations.DB_VERSION)
-abstract class MovieDatabase @Inject constructor() : RoomDatabase() {
+abstract class MovieDatabase : RoomDatabase() {
 
     abstract fun movieDao(): MovieDao
 
@@ -23,6 +22,8 @@ abstract class MovieDatabase @Inject constructor() : RoomDatabase() {
 
         private fun buildDatabase(context: Context) = Room.databaseBuilder(
             context.applicationContext, MovieDatabase::class.java, Constants.dbName
-        ).build()
+        ).allowMainThreadQueries().build()
     }
 }
+
+

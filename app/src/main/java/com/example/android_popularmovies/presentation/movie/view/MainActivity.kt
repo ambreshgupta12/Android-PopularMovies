@@ -1,46 +1,32 @@
 package com.example.android_popularmovies.presentation.movie.view
 
 import android.os.Bundle
-import android.view.View
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import androidx.recyclerview.widget.GridLayoutManager
+import androidx.navigation.findNavController
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.NavigationUI
 import com.example.android_popularmovies.R
 import com.example.android_popularmovies.databinding.ActivityMainBinding
-import com.example.android_popularmovies.data.source.remote.model.Movie
-import com.example.android_popularmovies.presentation.movie.view_model.MovieViewModel
-import com.example.android_popularmovies.presentation.movie.MoviesAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
-    private val viewModel: MovieViewModel by viewModels()
-
+    private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
-        setUpViewModel()
+        val navController = this.findNavController(R.id.myNavHostFragment)
+        NavigationUI.setupActionBarWithNavController(this, navController)
+        appBarConfiguration = AppBarConfiguration(navController.graph)
     }
 
-    private fun setUpViewModel() {
-        viewModel.movieData.observe(this) {
-            if (it != null) {
-                setRecyclerView(it)
-            }
-
-        }
+    override fun onSupportNavigateUp(): Boolean {
+        val navController = this.findNavController(R.id.myNavHostFragment)
+        return NavigationUI.navigateUp(navController, appBarConfiguration)
     }
 
-    private fun setRecyclerView(list: List<Movie>) {
-        binding.progressBar.visibility = View.GONE
-        binding.recyclerView.apply {
-            setHasFixedSize(true)
-            layoutManager = GridLayoutManager(this@MainActivity, 2)
-            adapter = MoviesAdapter(list)
-        }
-    }
 }

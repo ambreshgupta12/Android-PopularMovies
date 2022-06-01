@@ -67,9 +67,9 @@ class Movie {
     @Expose
     var originalTitle: String? = null
 
-    @SerializedName("genre_ids")
-    @Expose
-    var genreIds: List<Int>? = null
+//    @SerializedName("genre_ids")
+//    @Expose
+//    var genreIds: List<Int>? = null
 
     @SerializedName("title")
     @Expose
@@ -88,7 +88,7 @@ class Movie {
     var releaseDate: String? = null
 
     override fun toString(): String {
-        return "Movie(id=$id, popularity=$popularity, voteCount=$voteCount, video=$video, posterPath=$posterPath, adult=$adult, backdropPath=$backdropPath, originalLanguage=$originalLanguage, originalTitle=$originalTitle, genreIds=$genreIds, title=$title, voteAverage=$voteAverage, overview=$overview, releaseDate=$releaseDate)"
+        return "Movie(id=$id, popularity=$popularity, voteCount=$voteCount, video=$video, posterPath=$posterPath, adult=$adult, backdropPath=$backdropPath, originalLanguage=$originalLanguage, originalTitle=$originalTitle, title=$title, voteAverage=$voteAverage, overview=$overview, releaseDate=$releaseDate)"
     }
 
 }

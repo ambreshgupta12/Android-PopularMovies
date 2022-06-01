@@ -1,6 +1,12 @@
 package com.example.android_popularmovies.di
 
 import android.content.Context
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
+import android.net.NetworkInfo
+import android.os.Build
+import android.util.Log
+import androidx.annotation.RequiresApi
 import com.example.android_popularmovies.R
 import com.example.android_popularmovies.data.repository.MovieRepositoryImpl
 import com.example.android_popularmovies.data.source.local.MovieDao
@@ -91,6 +97,29 @@ object NetworkModule {
     fun provideService(retrofit: Retrofit): MovieApiService {
 
         return retrofit.create(MovieApiService::class.java)
+    }
+
+    @RequiresApi(Build.VERSION_CODES.M)
+    @Provides
+    @Singleton
+    fun provideIsNetworkAvailable(@ApplicationContext context: Context): Boolean {
+        val connectivityManager =
+            context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val capabilities =
+            connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
+        if (capabilities != null) {
+            if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)) {
+                Log.i("Internet", "NetworkCapabilities.TRANSPORT_CELLULAR")
+                return true
+            } else if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)) {
+                Log.i("Internet", "NetworkCapabilities.TRANSPORT_WIFI")
+                return true
+            } else if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET)) {
+                Log.i("Internet", "NetworkCapabilities.TRANSPORT_ETHERNET")
+                return true
+            }
+        }
+        return false
     }
 
     @Singleton

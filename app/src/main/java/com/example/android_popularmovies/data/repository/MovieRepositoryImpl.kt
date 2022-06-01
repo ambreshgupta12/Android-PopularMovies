@@ -21,7 +21,11 @@ class MovieRepositoryImpl(
         return service.movieDetails(movieId);
     }
 
-    override fun saveMovies(movies: List<Movie>) {
+    override fun cacheMovie(movies: List<Movie>) {
         movieDao.addMovies(movies)
+    }
+
+    override fun getCacheMovie(): List<Movie> {
+        return movieDao.getMovies();
     }
 }

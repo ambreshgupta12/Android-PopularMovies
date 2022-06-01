@@ -15,7 +15,12 @@ buildscript {
     ext.lifecycle_arch_ext_version='1.1.1'
     ext.activity_ktx='1.4.0'
     ext.fragment_ktx='1.4.1'
+    ext.navigation_version='1.0.1'
+    dependencies {
+        classpath 'androidx.navigation:navigation-safe-args-gradle-plugin:2.4.2'
+    }
 }
+
 plugins {
     id 'com.android.application' version '7.1.2' apply false
     id 'com.android.library' version '7.1.2' apply false

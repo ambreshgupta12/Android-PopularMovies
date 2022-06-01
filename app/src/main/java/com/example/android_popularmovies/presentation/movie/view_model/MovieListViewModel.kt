@@ -5,14 +5,16 @@ import androidx.lifecycle.ViewModel
 import com.example.android_popularmovies.data.source.remote.model.Movie
 import com.example.android_popularmovies.domain.usecase.GetMoviesUseCase
 import com.example.android_popularmovies.domain.usecase.SaveMoviesUseCase
-import com.example.android_popularmovies.presentation.movie.MovieState
+import com.example.android_popularmovies.presentation.movie.state.MovieState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
+
 @HiltViewModel
-class MovieViewModel @Inject constructor(
+class MovieListViewModel @Inject constructor(
     private val getMoviesUseCase: GetMoviesUseCase,
-    private val saveMoviesUseCase: SaveMoviesUseCase
+    private val saveMoviesUseCase: SaveMoviesUseCase,
+    private val isNetworkAvailable: Boolean
 ) : ViewModel() {
     val movieData = MutableLiveData<List<Movie>>()
     private val movieState = MutableLiveData<MovieState>()
@@ -24,17 +26,22 @@ class MovieViewModel @Inject constructor(
     }
 
     private fun loadMovies() {
-        getMoviesUseCase.execute(
-            onSuccess = {
-                movieState.value = MovieState.MovieListSuccess(it.results)
-                if (it.results != null) {
-                    movieData.value = it.results
-                    saveMoviesUseCase.saveMovieToDb(it.results!!)
+        if (isNetworkAvailable) {
+            getMoviesUseCase.execute(
+                onSuccess = {
+                    movieState.value = MovieState.MovieListSuccess(it.results)
+                    if (it.results != null) {
+                        movieData.value = it.results
+                        saveMoviesUseCase.cacheMovies(it.results!!)
+                    }
+                },
+                onError = {
+                    movieState.value = MovieState.Error(it.localizedMessage!!)
                 }
-            },
-            onError = {
-                movieState.value = MovieState.Error(it.localizedMessage!!)
-            }
-        )
+            )
+        } else {
+            movieData.value = saveMoviesUseCase.getCacheMovies();
+        }
+
     }
 }

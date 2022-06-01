@@ -8,6 +8,7 @@ import io.reactivex.Single
 
 interface MovieRepository {
     fun loadMovies(): Single<MovieListModel>
-    fun saveMovies(movies: List<Movie>)
+    fun cacheMovie(movies: List<Movie>)
+    fun getCacheMovie( ):List<Movie>
     fun getMovieDetails(movieId:Int): Single<MovieDetailsModel>
 }

@@ -7,7 +7,7 @@
 
         <variable
             name="movie"
-            type="com.example.android_popularmovies.domain.model.Movie" />
+            type="com.example.android_popularmovies.data.source.remote.model.Movie" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -17,6 +17,7 @@
         android:orientation="vertical">
 
         <androidx.cardview.widget.CardView
+            android:id="@+id/movieCard"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
