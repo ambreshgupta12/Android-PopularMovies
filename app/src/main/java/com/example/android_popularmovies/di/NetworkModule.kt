@@ -12,6 +12,7 @@ import com.example.android_popularmovies.data.repository.MovieRepositoryImpl
 import com.example.android_popularmovies.data.source.local.MovieDao
 import com.example.android_popularmovies.data.source.remote.MovieApiService
 import com.example.android_popularmovies.domain.repository.MovieRepository
+import com.example.android_popularmovies.utils.Constants
 import com.google.gson.Gson
 import dagger.Module
 import dagger.Provides
@@ -30,8 +31,7 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 @Module
 object NetworkModule {
-    private const val API_BASE_URL = "https://api.themoviedb.org/3/"
-    val logging: HttpLoggingInterceptor = HttpLoggingInterceptor()
+    private val logging: HttpLoggingInterceptor = HttpLoggingInterceptor()
 
     @Provides
     @Singleton
@@ -41,7 +41,7 @@ object NetworkModule {
         okHttpClient: OkHttpClient
     ): Retrofit {
         return Retrofit.Builder()
-            .baseUrl(API_BASE_URL)
+            .baseUrl(Constants.apiBaseUrl)
             .addConverterFactory(gsonConverterFactory)
             .addCallAdapterFactory(rxJava2CallAdapterFactory)
             .client(okHttpClient)

@@ -25,7 +25,7 @@ class MovieListViewModel @Inject constructor(
         loadMovies()
     }
 
-    private fun loadMovies() {
+    public fun loadMovies() {
         if (isNetworkAvailable) {
             getMoviesUseCase.execute(
                 onSuccess = {

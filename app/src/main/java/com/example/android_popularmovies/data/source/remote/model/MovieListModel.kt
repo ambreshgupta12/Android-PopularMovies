@@ -87,6 +87,36 @@ class Movie {
     @Expose
     var releaseDate: String? = null
 
+    constructor(
+        id: Int?,
+        popularity: Float?,
+        voteCount: Int?,
+        video: Boolean?,
+        posterPath: String?,
+        adult: Boolean?,
+        backdropPath: String?,
+        originalLanguage: String?,
+        originalTitle: String?,
+        title: String?,
+        voteAverage: Float?,
+        overview: String?,
+        releaseDate: String?
+    ) {
+        this.id = id
+        this.popularity = popularity
+        this.voteCount = voteCount
+        this.video = video
+        this.posterPath = posterPath
+        this.adult = adult
+        this.backdropPath = backdropPath
+        this.originalLanguage = originalLanguage
+        this.originalTitle = originalTitle
+        this.title = title
+        this.voteAverage = voteAverage
+        this.overview = overview
+        this.releaseDate = releaseDate
+    }
+
     override fun toString(): String {
         return "Movie(id=$id, popularity=$popularity, voteCount=$voteCount, video=$video, posterPath=$posterPath, adult=$adult, backdropPath=$backdropPath, originalLanguage=$originalLanguage, originalTitle=$originalTitle, title=$title, voteAverage=$voteAverage, overview=$overview, releaseDate=$releaseDate)"
     }

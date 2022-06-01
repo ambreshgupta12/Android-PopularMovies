@@ -1,4 +1,4 @@
-package com.androchef.domain.models.movies
+package com.example.android_popularmovies.domain.model
 
 data class Movie(
     var adult: Boolean = false,
