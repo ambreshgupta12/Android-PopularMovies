@@ -30,7 +30,7 @@ class MovieListFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = DataBindingUtil.inflate<MovieListFragmentBinding>(
+        binding = DataBindingUtil.inflate(
             inflater, R.layout.movie_list_fragment, container, false
         )
         setUpViewModel()

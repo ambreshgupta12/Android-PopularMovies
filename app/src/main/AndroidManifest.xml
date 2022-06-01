@@ -14,7 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AndroidPopularMovies">
         <activity
-            android:name=".presentation.SplashActivity"
+            android:name=".presentation.splash.SplashActivity"
             android:exported="true"
             android:theme="@style/Theme.AppCompat.Light">
             <intent-filter>

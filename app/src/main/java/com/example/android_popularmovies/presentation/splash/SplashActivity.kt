@@ -1,4 +1,4 @@
-package com.example.android_popularmovies.presentation
+package com.example.android_popularmovies.presentation.splash
 
 import android.annotation.SuppressLint
 import android.content.Intent
