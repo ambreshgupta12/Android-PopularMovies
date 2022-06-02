@@ -1,3 +1,5 @@
+package com.example.android_popularmovies
+
 import java.util.*
 import kotlin.random.Random
 

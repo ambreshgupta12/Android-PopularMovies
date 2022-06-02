@@ -28,7 +28,7 @@ class MovieRepositoryImplTest {
     }
 
     @Test
-    fun testLoadMovies() {
+    fun testLoadMovies_returnData() {
         stubPopularMovies(Single.just(MockMovies.generateMovieListModel(6)))
 
         val testObserver = movieApiService.popularMovies().test()
@@ -37,7 +37,18 @@ class MovieRepositoryImplTest {
     }
 
     @Test
-    fun testGetMovieDetails() {
+    fun getMovieDetails_Completes() {
+        val mockMovieDetails = MockMovies.generateMovieDetails();
+
+        stubMoviesDetails(Single.just(mockMovieDetails))
+
+        val testObserver = movieApiService.movieDetails(0).test()
+
+        testObserver.assertComplete()
+    }
+
+    @Test
+    fun testGetMovieDetails_returnData() {
         val mockMovieDetails = MockMovies.generateMovieDetails();
 
         stubMoviesDetails(Single.just(mockMovieDetails))

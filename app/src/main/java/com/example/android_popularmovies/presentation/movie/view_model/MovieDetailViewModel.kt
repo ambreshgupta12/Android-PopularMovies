@@ -16,7 +16,7 @@ class MovieDetailViewModel @Inject constructor(
     val isLoading = MutableLiveData<Boolean>()
 
 
-     fun getMovieDetails(movieId: Int) {
+    fun getMovieDetails(movieId: Int) {
         isLoading.value = true
         getMoviesUseCase.requestValues = GetMovieDetailsUseCase.Params(movieId);
         getMoviesUseCase.execute(

@@ -9,7 +9,7 @@ import io.reactivex.schedulers.Schedulers
  * that classes that extend this abstract class to use common methods & fields
  **/
 abstract class SingleUseCase<Params, Result> : UseCase() {
-     var requestValues: Params? = null
+    var requestValues: Params? = null
 
     internal abstract fun buildUseCaseSingle(requestValues: Params? = null): Single<Result>
 

@@ -5,8 +5,8 @@ import android.view.ViewGroup
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.android_popularmovies.databinding.MovieViewBinding
 import com.example.android_popularmovies.data.source.remote.model.Movie
+import com.example.android_popularmovies.databinding.MovieViewBinding
 import com.example.android_popularmovies.presentation.movie.view.MovieListFragmentDirections
 import com.example.android_popularmovies.utils.Constants
 
@@ -38,9 +38,11 @@ class MoviesViewHolder(private val binding: MovieViewBinding) :
             .into(binding.moviePhoto)
         binding.movieCard.setOnClickListener {
 
-            it.findNavController().navigate(MovieListFragmentDirections.actionMovieListFragmentToMovieDetailFragment(
-                movie.id!!
-            ))
+            it.findNavController().navigate(
+                MovieListFragmentDirections.actionMovieListFragmentToMovieDetailFragment(
+                    movie.id!!
+                )
+            )
 
         }
     }

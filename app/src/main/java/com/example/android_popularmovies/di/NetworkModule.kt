@@ -3,7 +3,6 @@ package com.example.android_popularmovies.di
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
-import android.net.NetworkInfo
 import android.os.Build
 import android.util.Log
 import androidx.annotation.RequiresApi
@@ -128,7 +127,7 @@ object NetworkModule {
         retrofitService: MovieApiService,
         movieDao: MovieDao
     ): MovieRepository {
-        return MovieRepositoryImpl(retrofitService,movieDao)
+        return MovieRepositoryImpl(retrofitService, movieDao)
     }
 
 }
