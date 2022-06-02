@@ -2,13 +2,14 @@ package com.example.android_popularmovies.presentation.movie.view_model
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.android_popularmovies.data.source.remote.model.MovieDetailsModel
 import com.example.android_popularmovies.domain.usecase.GetMovieDetailsUseCase
+import com.example.android_popularmovies.presentation.movie.state.MovieDetailState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import java.lang.Exception
 import javax.inject.Inject
 
 
@@ -16,22 +17,33 @@ import javax.inject.Inject
 class MovieDetailViewModel @Inject constructor(
     private val getMoviesUseCase: GetMovieDetailsUseCase
 ) : ViewModel() {
-    val movieDetails = MutableLiveData<MovieDetailsModel>()
-    val isLoading = MutableLiveData<Boolean>()
+    val movieDetailsState = MutableLiveData<MovieDetailState>()
+//    val movieDetails = MutableLiveData<MovieDetailsModel>()
+//    val isLoading = MutableLiveData<Boolean>()
+
+    init {
+        movieDetailsState.value = MovieDetailState.Init
+    }
 
     var job: Job? = null
     fun getMovieDetails(movieId: Int) {
-        isLoading.value = true
+        movieDetailsState.value = MovieDetailState.Loading
         val requestValues = GetMovieDetailsUseCase.Params(movieId);
-        job = CoroutineScope(Dispatchers.Main).launch {
+        job = CoroutineScope(Dispatchers.IO).launch {
             val response = getMoviesUseCase.execute(requestValues)
-
             if (response.isSuccessful) {
-                movieDetails.value = response.body()
-            } else {
-
+                CoroutineScope(Dispatchers.Main).launch {
+                    movieDetailsState.value = response.body()
+                        ?.let { MovieDetailState.MovieListSuccess(it) }
+                }
             }
-            isLoading.value = false
+        }
+        job?.invokeOnCompletion {
+            CoroutineScope(Dispatchers.Main).launch {
+                movieDetailsState.value =
+                    it?.toString()?.let { it1 -> MovieDetailState.Error(it1) }
+            }
+
         }
     }
 

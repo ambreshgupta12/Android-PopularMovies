@@ -7,8 +7,6 @@ import com.example.android_popularmovies.presentation.movie.view_model.MockMovie
 import io.reactivex.Single
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.test.StandardTestDispatcher
-import kotlinx.coroutines.test.createTestCoroutineScope
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mock
@@ -19,8 +17,6 @@ import retrofit2.Response
 @ExperimentalCoroutinesApi
 @RunWith(MockitoJUnitRunner::class)
 class MovieRepositoryImplTest {
-    private val testDispatcher = StandardTestDispatcher()
-    private val testScope = createTestCoroutineScope(testDispatcher)
 
     @Mock
     private lateinit var movieApiService: MovieApiService
