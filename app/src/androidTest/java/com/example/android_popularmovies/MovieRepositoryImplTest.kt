@@ -3,6 +3,7 @@ package com.example.android_popularmovies
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import com.example.android_popularmovies.data.source.local.MovieDatabase
+import org.junit.After
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -30,5 +31,8 @@ class MovieRepositoryImplTest {
         val moviesFromDb = movieDatabase.movieDao().getMovies()
         assert(moviesFromDb.isNotEmpty())
     }
-
+    @After
+    fun tearDown() {
+        movieDatabase.close()
+    }
 }
