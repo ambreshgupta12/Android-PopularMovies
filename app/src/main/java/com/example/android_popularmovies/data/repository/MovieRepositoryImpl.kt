@@ -7,6 +7,7 @@ import com.example.android_popularmovies.data.source.remote.model.MovieDetailsMo
 import com.example.android_popularmovies.data.source.remote.model.MovieListModel
 import com.example.android_popularmovies.domain.repository.MovieRepository
 import io.reactivex.Single
+import retrofit2.Response
 
 class MovieRepositoryImpl(
     private val service: MovieApiService,
@@ -17,7 +18,7 @@ class MovieRepositoryImpl(
         return service.popularMovies()
     }
 
-    override fun getMovieDetails(movieId: Int): Single<MovieDetailsModel> {
+    override suspend fun getMovieDetails(movieId: Int): Response<MovieDetailsModel> {
         return service.movieDetails(movieId);
     }
 

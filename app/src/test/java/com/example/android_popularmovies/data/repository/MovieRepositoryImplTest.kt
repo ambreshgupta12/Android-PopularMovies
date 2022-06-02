@@ -5,14 +5,22 @@ import com.example.android_popularmovies.data.source.remote.model.MovieDetailsMo
 import com.example.android_popularmovies.data.source.remote.model.MovieListModel
 import com.example.android_popularmovies.presentation.movie.view_model.MockMovies
 import io.reactivex.Single
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.test.StandardTestDispatcher
+import kotlinx.coroutines.test.createTestCoroutineScope
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mock
 import org.mockito.Mockito
 import org.mockito.junit.MockitoJUnitRunner
+import retrofit2.Response
 
+@ExperimentalCoroutinesApi
 @RunWith(MockitoJUnitRunner::class)
 class MovieRepositoryImplTest {
+    private val testDispatcher = StandardTestDispatcher()
+    private val testScope = createTestCoroutineScope(testDispatcher)
 
     @Mock
     private lateinit var movieApiService: MovieApiService
@@ -37,25 +45,13 @@ class MovieRepositoryImplTest {
     }
 
     @Test
-    fun getMovieDetails_Completes() {
-        val mockMovieDetails = MockMovies.generateMovieDetails();
-
-        stubMoviesDetails(Single.just(mockMovieDetails))
-
-        val testObserver = movieApiService.movieDetails(0).test()
-
-        testObserver.assertComplete()
-    }
-
-    @Test
     fun testGetMovieDetails_returnData() {
         val mockMovieDetails = MockMovies.generateMovieDetails();
-
-        stubMoviesDetails(Single.just(mockMovieDetails))
-
-        val testObserver = movieApiService.movieDetails(0).test()
-
-        assert(testObserver.values()[0].title == mockMovieDetails.title)
+        val response = runBlocking {
+            stubMoviesDetails(Response.success(mockMovieDetails))
+            movieApiService.movieDetails(0)
+        }
+        assert(response.body()!!.title == mockMovieDetails.title)
     }
 
 
@@ -65,7 +61,7 @@ class MovieRepositoryImplTest {
         )
     }
 
-    private fun stubMoviesDetails(single: Single<MovieDetailsModel>) {
+    private suspend fun stubMoviesDetails(single: Response<MovieDetailsModel>) {
         Mockito.`when`(movieApiService.movieDetails(0)).thenReturn(
             single
         )
