@@ -1,6 +1,7 @@
 # Popular Movies
 
 - [X] Code written with Kotlin
+- [X] Clean Architecture
 - [X] Retrofit
 Movie API Integration
     - [X] Retrofit
