@@ -1,9 +1,7 @@
-package com.example.android_popularmovies.presentation.movie.view_model
-
 import java.util.UUID
 import kotlin.random.Random
 
-object DataFactory {
+object RandomDataFactory {
     fun getRandomString(): String {
         return UUID.randomUUID().toString().substring(0, 15)
     }

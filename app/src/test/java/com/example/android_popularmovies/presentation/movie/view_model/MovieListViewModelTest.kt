@@ -67,11 +67,9 @@ class MovieListViewModelTest {
         // Arrange
         stubFetchMovies(Single.just(movies))
 
-        // Act
         movieListViewModel.loadMovies()
 
 
-        // Assert
         verify(moviesObserver, times(2)).onChanged(listOf())
     }
 
@@ -79,7 +77,7 @@ class MovieListViewModelTest {
     @Test
     fun fetchMoviesList_returnsData() {
 
-        val listOfMovies = PresentationMovieFactory.generateListOfMovies(10)
+        val listOfMovies = MockMovies.generateListOfMovies(10)
 
         val movies = MovieListModel()
         movies.results = listOfMovies;
@@ -88,23 +86,12 @@ class MovieListViewModelTest {
 
         movieListViewModel.loadMovies()
         moviesObserver.onChanged(listOfMovies)
-        // Assert
         verify(moviesObserver).onChanged(listOfMovies)
     }
 
 
-    /**
-     * Stub Helpers Methods
-     */
     private fun stubFetchMovies(single: Single<MovieListModel>) {
         `when`(getMoviesUseCase.buildUseCaseSingle())
             .thenReturn(single)
-    }
-
-
-    class TestingException(message: String = GENERIC_EXCEPTION_MESSAGE) : Exception(message) {
-        companion object {
-            const val GENERIC_EXCEPTION_MESSAGE = "Something error came while executing"
-        }
     }
 }
