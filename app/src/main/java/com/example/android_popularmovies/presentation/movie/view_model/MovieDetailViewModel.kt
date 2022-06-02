@@ -9,7 +9,6 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
-import java.lang.Exception
 import javax.inject.Inject
 
 
@@ -18,8 +17,6 @@ class MovieDetailViewModel @Inject constructor(
     private val getMoviesUseCase: GetMovieDetailsUseCase
 ) : ViewModel() {
     val movieDetailsState = MutableLiveData<MovieDetailState>()
-//    val movieDetails = MutableLiveData<MovieDetailsModel>()
-//    val isLoading = MutableLiveData<Boolean>()
 
     init {
         movieDetailsState.value = MovieDetailState.Init
