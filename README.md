@@ -11,6 +11,7 @@ Movie API Integration
 - [X] UI with
     - [X] Data binding in movie screen and RecyclerView Adaptor
     - [X] Building UI with ConstraintLayout
+    - [X] Jetpack Navigation
 - [X] Offline Movie Data with Room
 - [X] Sealed Classes Kotlin
 - [X] Tests
