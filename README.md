@@ -12,6 +12,7 @@ Movie API Integration
     - [X] Data binding in movie screen and RecyclerView Adaptor
     - [X] Building UI with ConstraintLayout
 - [X] Offline Movie Data with Room
+- [X] Sealed Classes Kotlin
 - [X] Tests
     - [X] JUnit
 
