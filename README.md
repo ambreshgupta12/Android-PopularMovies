@@ -16,4 +16,4 @@ Movie API Integration
 
 
 ## Screenshots
-    <img src="https://raw.githubusercontent.com/ashishrawat2911/Android-PopularMovies/master/screenshots/popularmovies.png" height = 500>
+<img src="https://raw.githubusercontent.com/ashishrawat2911/Android-PopularMovies/master/screenshots/popularmovies.png" height = 500>
