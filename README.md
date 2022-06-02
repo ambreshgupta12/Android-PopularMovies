@@ -13,3 +13,7 @@ Movie API Integration
 - [X] Offline Movie Data with Room
 - [X] Tests
     - [X] JUnit
+
+
+## Screenshots
+    <img src="https://raw.githubusercontent.com/ashishrawat2911/Android-PopularMovies/master/screenshots/popularmovies.png" height = 500>
