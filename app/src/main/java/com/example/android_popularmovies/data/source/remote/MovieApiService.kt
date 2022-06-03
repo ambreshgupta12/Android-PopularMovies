@@ -11,6 +11,6 @@ interface MovieApiService {
     @GET("movie/popular")
     fun popularMovies(): Single<MovieListModel>
 
-    @GET("movasie/{movie_id}")
+    @GET("movie/{movie_id}")
     suspend  fun movieDetails(@Path("movie_id") movieId: Int): Response<MovieDetailsModel>
 }
