@@ -11,7 +11,7 @@ import javax.inject.Inject
 class GetMoviesUseCase @Inject constructor(
     private val repository: MovieRepository
 ) {
-    var lastDisposable: Disposable? = null
+    var disposable: Disposable? = null
     private val compositeDisposable = CompositeDisposable()
 
     fun execute(
@@ -20,20 +20,20 @@ class GetMoviesUseCase @Inject constructor(
         onFinished: () -> Unit = {}
     ) {
         disposeLast()
-        lastDisposable = repository.loadMovies()
+        disposable = repository.loadMovies()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .doAfterTerminate(onFinished)
             .subscribe(onSuccess, onError)
 
-        lastDisposable?.let {
+        disposable?.let {
             compositeDisposable.add(it)
         }
     }
 
 
     private fun disposeLast() {
-        lastDisposable?.let {
+        disposable?.let {
             if (!it.isDisposed) {
                 it.dispose()
             }
