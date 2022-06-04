@@ -3,7 +3,6 @@ package com.example.android_popularmovies.presentation.movie.view_model
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.example.android_popularmovies.domain.usecase.GetMovieDetailsUseCase
 import com.example.android_popularmovies.presentation.movie.state.MovieDetailState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -18,7 +17,8 @@ import javax.inject.Inject
 class MovieDetailViewModel @Inject constructor(
     private val getMoviesUseCase: GetMovieDetailsUseCase
 ) : ViewModel() {
-    val movieDetailsState = MutableLiveData<MovieDetailState>()
+    val state: LiveData<MovieDetailState> get() = movieDetailsState
+    private val movieDetailsState = MutableLiveData<MovieDetailState>()
 
     init {
         movieDetailsState.value = MovieDetailState.Init
@@ -27,9 +27,8 @@ class MovieDetailViewModel @Inject constructor(
     var job: Job? = null
     fun getMovieDetails(movieId: Int) {
         movieDetailsState.value = MovieDetailState.Loading
-        val requestValues = GetMovieDetailsUseCase.Params(movieId);
         job = CoroutineScope(Dispatchers.IO).launch {
-            val response = getMoviesUseCase.execute(requestValues)
+            val response = getMoviesUseCase.execute(movieId)
             if (response.isSuccessful) {
                 CoroutineScope(Dispatchers.Main).launch {
                     movieDetailsState.value = response.body()
