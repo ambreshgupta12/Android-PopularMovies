@@ -1,7 +1,9 @@
 package com.example.android_popularmovies.presentation.movie.view_model
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.android_popularmovies.domain.usecase.GetMovieDetailsUseCase
 import com.example.android_popularmovies.presentation.movie.state.MovieDetailState
 import dagger.hilt.android.lifecycle.HiltViewModel
