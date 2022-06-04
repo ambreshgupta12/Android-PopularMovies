@@ -14,7 +14,7 @@ import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.example.android_popularmovies.R
 import com.example.android_popularmovies.databinding.MovieDetailFragmentBinding
-import com.example.android_popularmovies.presentation.movie.state.MovieDetailState
+import com.example.android_popularmovies.presentation.movie.state.ResultState
 import com.example.android_popularmovies.presentation.movie.view_model.MovieDetailViewModel
 import com.example.android_popularmovies.utils.Constants
 import dagger.hilt.android.AndroidEntryPoint
@@ -43,17 +43,17 @@ class MovieDetailFragment : Fragment() {
         viewModel.getMovieDetails(args.movieId)
         viewModel.state.observe(viewLifecycleOwner) {
             binding.progressBar.visibility =
-                if (it == MovieDetailState.Loading) View.VISIBLE else View.GONE
+                if (it is ResultState.Loading) View.VISIBLE else View.GONE
             when (it) {
-                is MovieDetailState.MovieListSuccess -> {
-                    binding.movie = it.movieDetail
+                is ResultState.Success -> {
+                    binding.movie = it.result
                     activity?.let { it1 ->
                         Glide.with(it1)
-                            .load("${Constants.movieImagePath}${it.movieDetail.posterPath}")
+                            .load("${Constants.movieImagePath}${it.result.posterPath}")
                             .into(binding.moviePhoto)
                     }
                 }
-                is MovieDetailState.Error -> {
+                is ResultState.Error -> {
                     Log.e(TAG, "setUpViewModel: " +
                             ""+it.message, )
                     Toast.makeText(activity, it.message, Toast.LENGTH_LONG).show()

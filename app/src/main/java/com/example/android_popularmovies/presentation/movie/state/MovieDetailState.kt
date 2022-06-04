@@ -1,10 +1,9 @@
 package com.example.android_popularmovies.presentation.movie.state
 
-import com.example.android_popularmovies.data.source.remote.model.MovieDetailsModel
 
-sealed class MovieDetailState {
-    object Init : MovieDetailState()
-    object Loading : MovieDetailState()
-    data class Error(var message: String) : MovieDetailState()
-    data class MovieListSuccess(var movieDetail: MovieDetailsModel) : MovieDetailState()
+sealed class ResultState<T> {
+    class Init<T> : ResultState<T>()
+    class Loading<T> : ResultState<T>()
+    data class Error<T>(var message: String) : ResultState<T>()
+    data class Success<T>(var result: T) : ResultState<T>()
 }

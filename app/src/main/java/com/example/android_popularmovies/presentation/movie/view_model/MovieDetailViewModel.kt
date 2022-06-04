@@ -3,8 +3,9 @@ package com.example.android_popularmovies.presentation.movie.view_model
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.android_popularmovies.data.source.remote.model.MovieDetailsModel
 import com.example.android_popularmovies.domain.usecase.GetMovieDetailsUseCase
-import com.example.android_popularmovies.presentation.movie.state.MovieDetailState
+import com.example.android_popularmovies.presentation.movie.state.ResultState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -17,31 +18,30 @@ import javax.inject.Inject
 class MovieDetailViewModel @Inject constructor(
     private val getMoviesUseCase: GetMovieDetailsUseCase
 ) : ViewModel() {
-    val state: LiveData<MovieDetailState> get() = movieDetailsState
-    private val movieDetailsState = MutableLiveData<MovieDetailState>()
+    val state: LiveData<ResultState<MovieDetailsModel>> get() = movieDetailsState
+    private val movieDetailsState = MutableLiveData<ResultState<MovieDetailsModel>>()
 
     init {
-        movieDetailsState.value = MovieDetailState.Init
+        movieDetailsState.value = ResultState.Init()
     }
 
     var job: Job? = null
     fun getMovieDetails(movieId: Int) {
-        movieDetailsState.value = MovieDetailState.Loading
+        movieDetailsState.value = ResultState.Loading()
         job = CoroutineScope(Dispatchers.IO).launch {
             val response = getMoviesUseCase.execute(movieId)
             if (response.isSuccessful) {
                 CoroutineScope(Dispatchers.Main).launch {
                     movieDetailsState.value = response.body()
-                        ?.let { MovieDetailState.MovieListSuccess(it) }
+                        ?.let { ResultState.Success(it) }
                 }
             }
         }
         job?.invokeOnCompletion {
             CoroutineScope(Dispatchers.Main).launch {
                 movieDetailsState.value =
-                    it?.toString()?.let { it1 -> MovieDetailState.Error(it1) }
+                    it?.toString()?.let { it1 -> ResultState.Error(it1) }
             }
-
         }
     }
 
