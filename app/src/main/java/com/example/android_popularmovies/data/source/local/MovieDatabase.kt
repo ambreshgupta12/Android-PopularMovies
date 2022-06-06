@@ -4,10 +4,11 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.example.android_popularmovies.data.source.local.model.MovieEntity
 import com.example.android_popularmovies.data.source.remote.model.Movie
 import com.example.android_popularmovies.utils.Constants
 
-@Database(entities = [Movie::class], version = Migrations.DB_VERSION)
+@Database(entities = [MovieEntity::class], version = Migrations.DB_VERSION)
 abstract class MovieDatabase : RoomDatabase() {
 
     abstract fun movieDao(): MovieDao

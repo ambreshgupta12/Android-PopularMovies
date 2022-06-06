@@ -7,6 +7,8 @@ import android.os.Build
 import android.util.Log
 import androidx.annotation.RequiresApi
 import com.example.android_popularmovies.R
+import com.example.android_popularmovies.data.MovieEntityToMovieMapper
+import com.example.android_popularmovies.data.MovieToMovieEntityMapper
 import com.example.android_popularmovies.data.repository.MovieRepositoryImpl
 import com.example.android_popularmovies.data.source.local.MovieDao
 import com.example.android_popularmovies.data.source.remote.MovieApiService
@@ -127,7 +129,7 @@ object NetworkModule {
         retrofitService: MovieApiService,
         movieDao: MovieDao
     ): MovieRepository {
-        return MovieRepositoryImpl(retrofitService, movieDao)
+        return MovieRepositoryImpl(retrofitService, movieDao, movieEntityToMovieMapper = MovieEntityToMovieMapper(), movieToMovieEntityMapper = MovieToMovieEntityMapper())
     }
 
 }

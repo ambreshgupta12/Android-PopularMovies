@@ -28,12 +28,13 @@ class MovieListViewModel @Inject constructor(
     public fun loadMovies() {
         if (isNetworkAvailable) {
             getMoviesUseCase.execute(
-                onSuccess = {
+                onSuccess = { it ->
                     movieState.value = MovieState.MovieListSuccess(it.results)
-                    if (it.results != null) {
-                        movieData.value = it.results
-                        saveMoviesUseCase.cacheMovies(it.results!!)
+                    it.results?.let {
+                        movieData.value = it
+                        saveMoviesUseCase.cacheMovies(it)
                     }
+
                 },
                 onError = {
                     movieState.value = MovieState.Error(it.localizedMessage!!)
