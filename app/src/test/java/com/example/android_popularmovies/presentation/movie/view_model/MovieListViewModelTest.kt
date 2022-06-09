@@ -6,7 +6,7 @@ import com.example.android_popularmovies.data.source.remote.model.Movie
 import com.example.android_popularmovies.data.source.remote.model.MovieListModel
 import com.example.android_popularmovies.domain.repository.MovieRepository
 import com.example.android_popularmovies.domain.usecase.GetMoviesUseCase
-import com.example.android_popularmovies.domain.usecase.SaveMoviesUseCase
+import com.example.android_popularmovies.presentation.movie.state.ResultState
 import io.reactivex.Single
 import org.junit.Before
 import org.junit.Rule
@@ -27,11 +27,10 @@ class MovieListViewModelTest {
     lateinit var movieRepository: MovieRepository
 
     @Mock
-    private lateinit var moviesObserver: Observer<List<Movie>>
+    private lateinit var moviesObserver: Observer<ResultState<List<Movie>>>
 
 
     private lateinit var getMoviesUseCase: GetMoviesUseCase
-    private lateinit var saveMoviesUseCase: SaveMoviesUseCase
     private lateinit var movieListViewModel: MovieListViewModel
 
     private var isNetworkAvailable: Boolean = false
@@ -47,17 +46,15 @@ class MovieListViewModelTest {
 
     private fun setUpUseCases() {
         getMoviesUseCase = GetMoviesUseCase(movieRepository)
-        saveMoviesUseCase = SaveMoviesUseCase(movieRepository)
     }
 
     private fun setUpViewModel() {
         movieListViewModel = MovieListViewModel(
             getMoviesUseCase,
-            saveMoviesUseCase,
             isNetworkAvailable,
         )
 
-        movieListViewModel.movieData.observeForever(moviesObserver)
+        movieListViewModel.state.observeForever(moviesObserver)
     }
 
     @Test
@@ -70,7 +67,7 @@ class MovieListViewModelTest {
         movieListViewModel.loadMovies()
 
 
-        verify(moviesObserver, times(2)).onChanged(listOf())
+        verify(moviesObserver, times(2)).onChanged(ResultState.Success(listOf()))
     }
 
 
@@ -85,13 +82,13 @@ class MovieListViewModelTest {
         stubFetchMovies(Single.just(movies))
 
         movieListViewModel.loadMovies()
-        moviesObserver.onChanged(listOfMovies)
-        verify(moviesObserver).onChanged(listOfMovies)
+        moviesObserver.onChanged(ResultState.Success(listOfMovies))
+        verify(moviesObserver).onChanged(ResultState.Success(listOfMovies))
     }
 
 
     private fun stubFetchMovies(single: Single<MovieListModel>) {
-        `when`(getMoviesUseCase.buildUseCaseSingle())
+        `when`(getMoviesUseCase.execute())
             .thenReturn(single)
     }
 }

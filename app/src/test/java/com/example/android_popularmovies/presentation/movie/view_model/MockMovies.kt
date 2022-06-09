@@ -1,10 +1,7 @@
 package com.example.android_popularmovies.presentation.movie.view_model
 
 import RandomDataFactory
-import com.example.android_popularmovies.data.source.remote.model.BelongsToCollection
-import com.example.android_popularmovies.data.source.remote.model.Movie
-import com.example.android_popularmovies.data.source.remote.model.MovieDetailsModel
-import com.example.android_popularmovies.data.source.remote.model.MovieListModel
+import com.example.android_popularmovies.data.source.remote.model.*
 
 object MockMovies {
 
@@ -29,44 +26,8 @@ object MockMovies {
         return model;
     }
 
-    fun generateMovieDetails(): MovieDetailsModel {
-        return MovieDetailsModel(
-            adult = RandomDataFactory.getRandomBoolean(),
-            id = RandomDataFactory.getRandomLong(),
-            title = RandomDataFactory.getRandomString(),
-            voteAverage = RandomDataFactory.getRandomDouble(),
-            posterPath = RandomDataFactory.getRandomString(),
-            popularity = RandomDataFactory.getRandomDouble(),
-            backdropPath = RandomDataFactory.getRandomString(),
-            originalLanguage = RandomDataFactory.getRandomString(),
-            originalTitle = RandomDataFactory.getRandomString(),
-            overview = RandomDataFactory.getRandomString(),
-            releaseDate = RandomDataFactory.getRandomString(),
-            video = RandomDataFactory.getRandomBoolean(),
-            voteCount = RandomDataFactory.getRandomLong(),
-            belongsToCollection = BelongsToCollection(
-                id = RandomDataFactory.getRandomLong(),
-                name = RandomDataFactory.getRandomString(),
-                posterPath = RandomDataFactory.getRandomString(),
-                backdropPath = RandomDataFactory.getRandomString()
-            ),
 
-            budget = RandomDataFactory.getRandomLong(),
-            genres = listOf(),
-            homepage = RandomDataFactory.getRandomString(),
-            imdbID = RandomDataFactory.getRandomString(),
-            productionCompanies = listOf(),
-            productionCountries = listOf(),
-            revenue = RandomDataFactory.getRandomLong(),
-            runtime = RandomDataFactory.getRandomLong(),
-            spokenLanguages = listOf(),
-            status = RandomDataFactory.getRandomString(),
-            tagline = RandomDataFactory.getRandomString(),
-        );
-    }
-
-
-    private fun generateMovie(): Movie {
+    fun generateMovie(): Movie {
         return Movie(
             adult = RandomDataFactory.getRandomBoolean(),
             id = RandomDataFactory.getRandomInt(),
@@ -81,6 +42,35 @@ object MockMovies {
             releaseDate = RandomDataFactory.getRandomString(),
             video = RandomDataFactory.getRandomBoolean(),
             voteCount = RandomDataFactory.getRandomInt()
+        )
+    }
+
+    fun generateMovieBelongingList(size: Int): MovieBelongingList {
+        val listOfMovies = mutableListOf<MovieBelonging>()
+        repeat(size) {
+            listOfMovies.add(generateMovieBelongings())
+        }
+
+        val model = MovieBelongingList(
+            id = RandomDataFactory.getRandomLong(),
+            page = RandomDataFactory.getRandomLong(),
+            totalResults = RandomDataFactory.getRandomLong(),
+            results = listOfMovies,
+            totalPages = RandomDataFactory.getRandomLong(),
+        );
+        return model;
+    }
+
+    fun generateMovieBelongings(): MovieBelonging {
+        return MovieBelonging(
+            id = RandomDataFactory.getRandomLong(),
+            posterPath = RandomDataFactory.getRandomString(),
+            description = RandomDataFactory.getRandomString(),
+            favoriteCount = RandomDataFactory.getRandomLong(),
+            iso639_1 = ISO639_1.En,
+            itemCount = RandomDataFactory.getRandomLong(),
+            listType = ListType.Movie,
+            name = RandomDataFactory.getRandomString(),
         )
     }
 }

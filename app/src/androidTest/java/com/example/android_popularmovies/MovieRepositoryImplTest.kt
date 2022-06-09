@@ -2,6 +2,7 @@ package com.example.android_popularmovies
 
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
+import com.example.android_popularmovies.data.MovieToMovieEntityMapper
 import com.example.android_popularmovies.data.source.local.MovieDatabase
 import org.junit.After
 import org.junit.Before
@@ -26,8 +27,12 @@ class MovieRepositoryImplTest {
 
     @Test
     fun addMovieToDB() {
-        val movies = MockMovies.generateListOfMovies(10);
-        movieDatabase.movieDao().addMovies(movies)
+        val movies = MockMovies.generateListOfMovies(10)
+        movieDatabase.movieDao().addMovies(
+            movies.map {
+                MovieToMovieEntityMapper().mapFromModel(model = it)
+            }
+        )
         val moviesFromDb = movieDatabase.movieDao().getMovies()
         assert(moviesFromDb.isNotEmpty())
     }

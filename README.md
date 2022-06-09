@@ -16,6 +16,8 @@ Movie API Integration
 - [X] Sealed Classes Kotlin
 - [X] Tests
     - [X] JUnit
+    - [ ] Expresso
+    - [ ] Mockito
 
 
 ## Screenshots

@@ -1,8 +1,8 @@
 package com.example.android_popularmovies.data
 
-import com.example.android_popularmovies.data.source.EntityMapper
 import com.example.android_popularmovies.data.source.local.model.MovieEntity
 import com.example.android_popularmovies.data.source.remote.model.Movie
+import com.example.android_popularmovies.utils.EntityMapper
 import javax.inject.Inject
 
 class MovieToMovieEntityMapper @Inject constructor() :

@@ -12,7 +12,6 @@ object MockMovies {
         return listOfMovies
     }
 
-
     private fun generateMovie(): Movie {
         return Movie(
             adult = RandomDataFactory.getRandomBoolean(),
