@@ -4,15 +4,13 @@ import com.example.android_popularmovies.data.source.remote.model.Movie
 import com.example.android_popularmovies.data.source.remote.model.MovieListModel
 import com.example.android_popularmovies.domain.repository.MovieRepository
 import io.reactivex.Single
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.disposables.Disposable
 import javax.inject.Inject
 
 class GetMoviesUseCase @Inject constructor(
     private val repository: MovieRepository
 ) {
 
-    fun execute(): Single<MovieListModel> {
+    fun getPopularMovies(): Single<MovieListModel> {
         return repository.loadMovies()
     }
 

@@ -33,7 +33,7 @@ class MovieListViewModel @Inject constructor(
 
     fun loadMovies() {
         if (isNetworkAvailable) {
-            disposable = getMoviesUseCase.execute()
+            disposable = getMoviesUseCase.getPopularMovies()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({

@@ -88,7 +88,7 @@ class MovieListViewModelTest {
 
 
     private fun stubFetchMovies(single: Single<MovieListModel>) {
-        `when`(getMoviesUseCase.execute())
+        `when`(getMoviesUseCase.getPopularMovies())
             .thenReturn(single)
     }
 }
