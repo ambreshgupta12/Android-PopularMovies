@@ -8,16 +8,20 @@ Movie API Integration
     - [X] Kotlin Coroutines
     - [X] RX Java
 - [X] Live Data and View Model
-- [X] UI with
+UI with
     - [X] Data binding in movie screen and RecyclerView Adaptor
     - [X] Building UI with ConstraintLayout
     - [X] Jetpack Navigation
+    - [ ] Jetpack Compose
 - [X] Offline Movie Data with Room
 - [X] Sealed Classes Kotlin
 - [X] Tests
     - [X] JUnit
     - [ ] Expresso
     - [ ] Mockito
+Theming
+    - [ ] DarkTheme
+
 
 
 ## Screenshots
